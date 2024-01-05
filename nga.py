@@ -1,6 +1,8 @@
 import numpy as np
 import clifford as cf
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~NEURAL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~NODE
 class NeuralNode:
     def __init__(self, layer_type='feedforward', **kwargs):
         self.layer_type = layer_type
@@ -22,6 +24,8 @@ class NeuralNode:
         self.input = input
         self.output = self.layer.feedforward(input)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FEEDFORWARD
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LAYER
 # Feedforward layer
 class FeedforwardLayer:
     def __init__(self, weight=0.0):
@@ -30,6 +34,8 @@ class FeedforwardLayer:
     def feedforward(self, input):
         return input * self.weight
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RECURRENT
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LAYER
 # Recurrent layer
 class RecurrentLayer:
     def __init__(self, weight=0.0, recurrent_weight=0.0):
@@ -41,6 +47,8 @@ class RecurrentLayer:
         self.hidden_state = self.hidden_state * self.recurrent_weight + input * self.weight
         return self.hidden_state
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CONVOLUTIONAL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LAYER
 # Convolutional layer
 class ConvolutionalLayer:
     def __init__(self, filter_size=3, weight_initializer=None):
@@ -70,6 +78,8 @@ class ConvolutionalLayer:
         self.output = output
         return output
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GEOMETRIC
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LAYER
 # Geometric algebra layer
 class GeometricAlgebraNodeLayer:
     def __init__(self, weight=0.0):
@@ -87,12 +97,16 @@ class GeometricAlgebraNodeLayer:
         self.output = self.weight * self.input
         return self.output.value[0]
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FEEDFORWARD
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TEST
 # Create and initialize a single NeuralNode with a feedforward layer
 neuron_feedforward = NeuralNode(layer_type='feedforward', weight=1.0)
 x = 3.0
 neuron_feedforward.feedforward(x)
 print("The output of the feedforward neural node is:", neuron_feedforward.output)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~RECURRENT
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TEST
 # Create and initialize a single NeuralNode with a recurrent layer
 neuron_recurrent = NeuralNode(layer_type='recurrent', weight=0.5, recurrent_weight=0.1)
 sequence = [1.0, 2.0, 3.0]
@@ -100,6 +114,8 @@ for x in sequence:
     neuron_recurrent.feedforward(x)
     print("Output after processing input", x, "is:", neuron_recurrent.output)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CONVOLUTIONAL
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TEST
 # Create and initialize a single NeuralNode with a convolutional layer
 neuron_convolutional = NeuralNode(layer_type='convolutional', filter_size=3)
 example_input = np.array([[1.0, 2.0, 3.0],
@@ -108,6 +124,8 @@ example_input = np.array([[1.0, 2.0, 3.0],
 neuron_convolutional.feedforward(example_input)
 print("The output of the convolutional neural node is:\n", neuron_convolutional.output)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GEOMETRIC
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TEST
 # Create and initialize a single NeuralNode with a geometric algebra layer
 ga_neuron = NeuralNode(layer_type='geometric_algebra', weight=1.0)
 x = 3.0
