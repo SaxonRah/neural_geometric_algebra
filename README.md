@@ -1,7 +1,9 @@
 ### neural_geometric_algebra
 A basic Python example of a neural network node with feedforward, recurrent, convolutional, and geometric layers.
 
+
 ## nga.py
+## 100 lines!
 ```python
 neuron_feedforward = NeuralNode(layer_type='feedforward', weight=1.0)
 neuron_recurrent = NeuralNode(layer_type='recurrent', weight=0.5, recurrent_weight=0.1)
@@ -14,6 +16,7 @@ Each layer class overrides the feedforward method from the base NeuralNode class
 
 
 ## nga_layers.py
+## 150 lines!
 ```python
 network_architecture = [
     {'type': 'feedforward', 'params': {'weight': 1.0}},
