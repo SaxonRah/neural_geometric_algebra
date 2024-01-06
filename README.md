@@ -29,3 +29,7 @@ network_architecture = [
 neural_network = NeuralNode(network_architecture)
 ```
 Here you can develop a layered network architechture.
+
+
+## nga_layers_trainer.py
+Trains layered netwrok architechture. 
